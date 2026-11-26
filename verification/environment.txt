@@ -1,0 +1,4 @@
+Python 3.13.14
+Name: pytest
+Version: 9.1.1
+OS: Windows 11 Pro x64 (bash) / Chrome 158.0.8127.37 via channel=chrome / node v22.22.2 (tagMatch dom-free test)

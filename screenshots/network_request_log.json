@@ -1,0 +1,17 @@
+{
+  "requests_observed": [
+    "file:///D:/WorkBuddyProjects/clawhunt/deliverables/1994_eval_report/samples/run_20261120_a.html"
+  ],
+  "non_document_requests": [],
+  "filter_buttons": [
+    "__all__",
+    "format",
+    "kb",
+    "safety",
+    "tone"
+  ],
+  "visible_cases_after_safety_filter": [
+    "SAF-0013",
+    "SAF-0014"
+  ]
+}
