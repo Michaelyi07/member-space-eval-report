@@ -1,35 +1,32 @@
-C:\Users\Administrator\.workbuddy\binaries\python\versions\3.13.12\Lib\site-packages\pytest_asyncio\plugin.py:306: PytestDeprecationWarning: The configuration option "asyncio_default_fixture_loop_scope" is unset.
-The event loop scope for asynchronous fixtures will default to the fixture scope. Future versions of pytest-asyncio will default the loop scope for asynchronous fixtures to "function" scope. Set the default fixture loop scope explicitly in order to avoid unexpected behavior in the future. Valid fixture loop scopes are: "function", "class", "module", "package", "session". Set it to "fixture-scope" to keep the current behavior.
-
-  warnings.warn(PytestDeprecationWarning(_DEFAULT_FIXTURE_LOOP_SCOPE_UNSET))
 ============================= test session starts =============================
-platform win32 -- Python 3.13.14, pytest-9.2.0, pluggy-1.7.0 -- C:\Users\Administrator\.workbuddy\binaries\python\versions\3.13.12\python.exe
+platform win32 -- Python 3.13.14, pytest-9.2.0, pluggy-1.7.0 -- <python>
 cachedir: .pytest_cache
 rootdir: D:\WorkBuddyProjects\workspace_verify\member-space-eval-report
 configfile: pytest.ini
-plugins: anyio-4.16.0, platformdirs-4.14.5, asyncio-1.5.0
-asyncio: mode=Mode.STRICT, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
-collecting ... collected 20 items
+plugins: anyio-4.16.0, platformdirs-4.14.5
+collecting ... collected 22 items
 
-tests/test_eval_report.py::test_html_no_external_references PASSED       [  5%]
-tests/test_eval_report.py::test_html_inlines_style_and_script PASSED     [ 10%]
-tests/test_eval_report.py::test_html_contains_run_metadata PASSED        [ 15%]
-tests/test_eval_report.py::test_html_summary_and_grouped_tables PASSED   [ 20%]
-tests/test_eval_report.py::test_html_decline_marked_red PASSED           [ 25%]
-tests/test_eval_report.py::test_failed_cases_detail PASSED               [ 30%]
-tests/test_eval_report.py::test_slowest_ten PASSED                       [ 35%]
-tests/test_eval_report.py::test_judge_unstable_list PASSED               [ 40%]
-tests/test_eval_report.py::test_tag_filter_buttons PASSED                [ 45%]
-tests/test_eval_report.py::test_filter_logic_dom_free PASSED             [ 50%]
-tests/test_eval_report.py::test_md_line_budget PASSED                    [ 55%]
-tests/test_eval_report.py::test_md_contains_signed_baseline_delta PASSED [ 60%]
-tests/test_eval_report.py::test_md_top_tags_and_cases PASSED             [ 65%]
-tests/test_eval_report.py::test_no_baseline_marker_in_md PASSED          [ 70%]
-tests/test_eval_report.py::test_no_baseline_marker_in_html PASSED        [ 75%]
-tests/test_eval_report.py::test_no_baseline_skips_delta_math PASSED      [ 80%]
-tests/test_eval_report.py::test_partial_baseline_missing_tag PASSED      [ 85%]
-tests/test_eval_report.py::test_cli_produces_both_artifacts PASSED       [ 90%]
-tests/test_eval_report.py::test_cli_missing_run_errors PASSED            [ 95%]
-tests/test_eval_report.py::test_fmt_pp_zero_is_ambiguous_free PASSED     [100%]
+tests/test_eval_report.py::test_html_no_external_references PASSED       [  4%]
+tests/test_eval_report.py::test_html_inlines_style_and_script PASSED     [  9%]
+tests/test_eval_report.py::test_html_contains_run_metadata PASSED        [ 13%]
+tests/test_eval_report.py::test_html_summary_and_grouped_tables PASSED   [ 18%]
+tests/test_eval_report.py::test_html_decline_marked_red PASSED           [ 22%]
+tests/test_eval_report.py::test_failed_cases_detail PASSED               [ 27%]
+tests/test_eval_report.py::test_slowest_ten PASSED                       [ 31%]
+tests/test_eval_report.py::test_judge_unstable_list PASSED               [ 36%]
+tests/test_eval_report.py::test_tag_filter_buttons PASSED                [ 40%]
+tests/test_eval_report.py::test_filter_logic_dom_free PASSED             [ 45%]
+tests/test_eval_report.py::test_md_line_budget PASSED                    [ 50%]
+tests/test_eval_report.py::test_md_contains_signed_baseline_delta PASSED [ 54%]
+tests/test_eval_report.py::test_md_top_tags_and_cases PASSED             [ 59%]
+tests/test_eval_report.py::test_no_baseline_marker_in_md PASSED          [ 63%]
+tests/test_eval_report.py::test_no_baseline_marker_in_html PASSED        [ 68%]
+tests/test_eval_report.py::test_no_baseline_skips_delta_math PASSED      [ 72%]
+tests/test_eval_report.py::test_partial_baseline_missing_tag PASSED      [ 77%]
+tests/test_eval_report.py::test_cli_produces_both_artifacts PASSED       [ 81%]
+tests/test_eval_report.py::test_cli_missing_run_errors PASSED            [ 86%]
+tests/test_eval_report.py::test_fmt_pp_zero_is_ambiguous_free PASSED     [ 90%]
+tests/test_eval_report.py::test_whitespace_tag_rejected PASSED           [ 95%]
+tests/test_eval_report.py::test_score_delta_styled_independently PASSED  [100%]
 
-============================= 20 passed in 1.33s ==============================
+============================= 22 passed in 1.98s ==============================

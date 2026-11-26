@@ -1,4 +1,4 @@
 Python 3.13.14
-Name: pytest
-Version: 9.1.1
-OS: Windows 11 Pro x64 / Python 3.13.14 / pytest 9.1.1 / Chrome 158.0.8127.37 (channel=chrome) / node v22.22.2 (tagMatch dom-free test)
+pytest 9.2.0 (pluggy 1.7.0)
+OS: Windows 11 Pro x64 / Chrome 158.0.8127.37 (playwright channel=chrome) / node v22.22.2 (tagMatch dom-free test)
+Note: the pytest header interpreter path is normalized to <python> for confidentiality (same run, raw otherwise).
