@@ -5,7 +5,7 @@ The event loop scope for asynchronous fixtures will default to the fixture scope
 ============================= test session starts =============================
 platform win32 -- Python 3.13.14, pytest-9.2.0, pluggy-1.7.0 -- C:\Users\Administrator\.workbuddy\binaries\python\versions\3.13.12\python.exe
 cachedir: .pytest_cache
-rootdir: D:\WorkBuddyProjects\clawhunt\deliverables\1994_eval_report
+rootdir: D:\WorkBuddyProjects\workspace_verify\member-space-eval-report
 configfile: pytest.ini
 plugins: anyio-4.16.0, platformdirs-4.14.5, asyncio-1.5.0
 asyncio: mode=Mode.STRICT, debug=False, asyncio_default_fixture_loop_scope=None, asyncio_default_test_loop_scope=function
@@ -32,4 +32,4 @@ tests/test_eval_report.py::test_cli_produces_both_artifacts PASSED       [ 90%]
 tests/test_eval_report.py::test_cli_missing_run_errors PASSED            [ 95%]
 tests/test_eval_report.py::test_fmt_pp_zero_is_ambiguous_free PASSED     [100%]
 
-============================= 20 passed in 2.75s ==============================
+============================= 20 passed in 1.33s ==============================
