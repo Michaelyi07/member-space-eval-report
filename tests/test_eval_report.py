@@ -123,17 +123,21 @@ def test_html_decline_marked_red(html_a, metrics_a):
 
 def test_failed_cases_detail(html_a, metrics_a):
     """Scope sentence: failed cases show input summary, per-point hit status,
-    violations, and the full tested output folded in <details>."""
+    violations, and the full tested output folded in <details> — per case,
+    not just globally."""
     assert "失败用例" in html_a
+    assert "输入摘要：" in html_a
+    assert "<details><summary>被测输出全文</summary>" in html_a
+    assert html_a.count("✓ 命中") > 0 and html_a.count("✗ 未命中") > 0
+    assert "违规项：" in html_a  # fixture has cases with and without violations
     for c in metrics_a["failed_cases"]:
         assert f'data-case-key="{c["case_key"]}"' in html_a
-        assert "输入摘要：" in html_a
-        assert "<details><summary>被测输出全文</summary>" in html_a
-        assert html_a.count("✓ 命中") > 0 and html_a.count("✗ 未命中") > 0
-        if c["violations"]:
-            assert "违规项：" in html_a
-        break
-    assert "被测输出全文" in html_a
+        for p in c["expected_points"]:
+            mark = "✓ 命中" if p["hit"] else "✗ 未命中"
+            assert f">{mark}</span> — {p['point']}" in html_a, (c["case_key"], p["point"])
+        for v in c["violations"]:
+            assert f"<li>{v}</li>" in html_a
+        assert f"<pre>{c['output']}</pre>" in html_a
 
 
 def test_slowest_ten(html_a, metrics_a):
@@ -161,11 +165,13 @@ def test_tag_filter_buttons(html_a, metrics_a):
     multi_tag = next(c for c in metrics_a["failed_cases"] if len(c["tags"]) >= 3)
     for tag in multi_tag["tags"]:
         assert f'<button data-tag="{tag}">' in html_a
-        assert f'data-tags="{tag}' in html_a or f' {tag}"' in html_a
     # no duplicate data-tags strings (a card appears once, carries all tags)
     card_tags = re.findall(r'class="failed-card" data-tags="([^"]+)"', html_a)
     assert len(card_tags) == len(set(card_tags))
     assert " ".join(multi_tag["tags"]) in card_tags
+    # every failing tag present in the fixture has exactly one filter button
+    for tag in {t for c in metrics_a["failed_cases"] for t in c["tags"]}:
+        assert html_a.count(f'<button data-tag="{tag}">') == 1
 
 
 def test_filter_logic_dom_free():
@@ -289,3 +295,36 @@ def test_fmt_pp_zero_is_ambiguous_free():
     assert fmt_pp(4.7) == "+4.7pp"
     assert fmt_pp(-25.0) == "-25.0pp"
     assert fmt_pp(None) == NO_BASELINE_MARKER
+
+
+def test_whitespace_tag_rejected(tmp_path):
+    """Tags are space-joined in data-tags for HTML filtering — a tag with
+    whitespace would break filtering, so the loader rejects it up front."""
+    import json
+
+    from eval_report.loader import EvalReportError, load_run
+
+    run = load_run(RUNS, RUN_WITH_BASELINE)
+    bad = json.loads(json.dumps(run, ensure_ascii=False))
+    bad["run_id"] = "run_bad_tag"
+    bad["cases"][0]["tags"] = ["kb agent"]
+    (tmp_path / "run_bad_tag.json").write_text(json.dumps(bad, ensure_ascii=False), encoding="utf-8")
+    with pytest.raises(EvalReportError, match="whitespace"):
+        load_run(tmp_path, "run_bad_tag")
+
+
+def test_score_delta_styled_independently():
+    """A run where pass rate rises but avg score declines: the score-delta
+    card must be red (its own class), not inherit the pass-rate direction."""
+    run = load_run(RUNS, RUN_WITH_BASELINE)
+    run = dict(run)
+    baseline = dict(run["baseline"])
+    baseline["pass_rate"] = 0.50  # pass rate far above -> +33.3pp (green)
+    baseline["avg_score"] = 5.00  # avg score below -> red
+    run["baseline"] = baseline
+    m = compute_metrics(run)
+    assert m["overall_delta_pp"] > 0 and m["score_delta"] < 0
+    doc = render_html(run, m)
+    assert '<div class="v delta-pos">+33.3pp</div>' in doc
+    assert '<div class="v delta-neg">' in doc
+    assert re.search(r'<div class="v delta-neg">-\d\.\d分</div>', doc)

@@ -12,6 +12,10 @@
    与基线差值（带符号 pp；0.0 显示 `±0.0pp`）、失败最多的 3 个 tag、前 5 个失败用例的
    case_key。
 
+**报告组件与「HTML 模板」交付物对应关系**：订单交付物中的「HTML 模板」即
+`eval_report/html_report.py`（`_CSS` 样式模板 + `render_html` 结构模板 +
+`TAG_MATCH_JS` 过滤脚本模板，三者内联组装为单文件 HTML）。
+
 **没有基线时显示「无基线」，而不是 0**（差值计算整体跳过；部分基线缺某个 tag 时仅该
 行显示「无基线」）。所有样张数据均为虚构，不含任何真实个人/企业信息，不含客户名称。
 
@@ -83,7 +87,7 @@ python scripts/make_samples.py   # 重新生成 fixtures/runs/*.json 与 samples
 - `samples/run_20261120_a.html|md` — 有基线运行（含下降标红、3-tag 失败用例、judge 不稳定用例）
 - `samples/run_20261121_b.html|md` — 无基线运行（显示「无基线」）
 - `screenshots/` — AC1 断网打开样张（浏览器网络面板无外部请求）与 AC4 tag 筛选生效截图
-- 测试结果（Windows 11 / Python 3.13 / pytest 8.x）：见交付正文与 `verification/` 记录
+- 测试结果（Windows 11 / Python 3.13.14 / pytest 9.2.0）：见交付正文与 `verification/` 记录
 
 ## 边界
 

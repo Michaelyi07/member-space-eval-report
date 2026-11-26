@@ -66,3 +66,11 @@ def validate_run(run: dict) -> None:
                 raise EvalReportError(f"run.cases[{i}] missing required key: {key}")
         if not isinstance(case["tags"], list) or not case["tags"]:
             raise EvalReportError(f"run.cases[{i}].tags must be a non-empty list")
+        for tag in case["tags"]:
+            if not isinstance(tag, str) or not tag.strip():
+                raise EvalReportError(f"run.cases[{i}] has an empty/non-string tag")
+            if tag != tag.strip() or any(ch.isspace() for ch in tag):
+                raise EvalReportError(
+                    f"run.cases[{i}] tag {tag!r} contains whitespace — "
+                    "tags must be single tokens (HTML tag filtering joins on spaces)"
+                )

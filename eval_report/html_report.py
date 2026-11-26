@@ -104,6 +104,8 @@ def render_html(run: dict, m: dict) -> str:
     # ---- summary cards ----
     ov = m["overall_delta_pp"]
     ov_cls = "delta-neg" if ov is not None and ov < 0 else ("delta-pos" if ov is not None else "delta-zero")
+    sc = m["score_delta"]
+    sc_cls = "delta-neg" if sc is not None and sc < 0 else ("delta-pos" if sc is not None else "delta-zero")
     parts.append('<div class="cards">')
     parts.append(
         f'<div class="card"><div class="k">总体通过率</div>'
@@ -121,7 +123,7 @@ def render_html(run: dict, m: dict) -> str:
     )
     parts.append(
         f'<div class="card"><div class="k">平均分差值</div>'
-        f'<div class="v {ov_cls}">{e(fmt_score(m["score_delta"]))}</div></div>'
+        f'<div class="v {sc_cls}">{e(fmt_score(m["score_delta"]))}</div></div>'
     )
     parts.append(
         f'<div class="card"><div class="k">失败用例</div>'
@@ -138,11 +140,12 @@ def render_html(run: dict, m: dict) -> str:
         )
         for r in rows:
             delta_txt = fmt_pp(r["delta_pp"])
-            if r["delta_pp"] is None:
+            raw = r["delta_pp"]
+            if raw is None:
                 cls = "delta-zero"
-            elif r["delta_pp"] < 0:
+            elif raw < 0:  # any real decline is red, even when it rounds to ±0.0pp
                 cls = "delta-neg"
-            elif abs(r["delta_pp"]) < 0.05:
+            elif raw == 0:
                 cls = "delta-zero"
             else:
                 cls = "delta-pos"
